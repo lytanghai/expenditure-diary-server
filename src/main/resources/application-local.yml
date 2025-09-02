@@ -23,11 +23,6 @@ spring:
   jpa:
     open-in-view: false
 
-    #Personal
-#    url: jdbc:postgresql://localhost:5432/merchant
-#    username: postgres
-#    password: admin
-
 backend_server:
   web_url: http://localhost:5173
 

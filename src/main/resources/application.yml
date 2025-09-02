@@ -11,12 +11,14 @@ spring:
   datasource:
     primary:
       driver-class-name: org.postgresql.Driver
-      url: ${DB_HOST_PRIMARY}
+#      url: ${DB_HOST_PRIMARY}
+      url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
       username: ${DB_USERNAME_PRIMARY}
       password: ${DB_PASSWORD_PRIMARY}
     secondary:
       driver-class-name: org.postgresql.Driver
-      url: ${DB_HOST_SECONDARY}
+#      url: ${DB_HOST_SECONDARY}
+      url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres
       username: ${DB_USERNAME_SECONDARY}
       password: ${DB_PASSWORD_SECONDARY}
   jpa:
