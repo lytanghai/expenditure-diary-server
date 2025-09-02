@@ -1,0 +1,46 @@
+spring:
+#  profiles:
+#    active: local
+  application:
+    name: expenditure-diary
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+  datasource:
+    primary:
+      driver-class-name: org.postgresql.Driver
+      url: ${DB_HOST_PRIMARY}
+      username: ${DB_USERNAME_PRIMARY}
+      password: ${DB_PASSWORD_PRIMARY}
+    secondary:
+      url: ${DB_HOST_SECONDARY}
+      username: ${DB_USERNAME_SECONDARY}
+      password: ${DB_PASSWORD_SECONDARY}
+  jpa:
+    open-in-view: ${JPA_VIEW_MODE}
+
+backend_server:
+  web_url: ${SERVER_URL}
+
+jwt:
+  secret_key: ${JWT_SECRET_KEY}
+  auth:
+    users:
+      admin_usr: ${ADMIN_USERNAME}
+      admin_pwd: ${ADMIN_PASSWORD}
+
+telegram:
+  enable: ${TELEGRAM_BOT_ENABLE}
+  bot-token: ${TELEGRAM_BOT_TOKEN}
+  chat-id: ${TELEGRAM_CHAT_ID}
+
+server:
+  rate_limit: ${RATE_LIMIT}
+  servlet:
+    context-path: /expenditure-diary
+  port: 8080
+
+app:
+  version: 1.0.10
