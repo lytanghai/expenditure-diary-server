@@ -15,6 +15,7 @@ spring:
       username: ${DB_USERNAME_PRIMARY}
       password: ${DB_PASSWORD_PRIMARY}
     secondary:
+      driver-class-name: org.postgresql.Driver
       url: ${DB_HOST_SECONDARY}
       username: ${DB_USERNAME_SECONDARY}
       password: ${DB_PASSWORD_SECONDARY}
