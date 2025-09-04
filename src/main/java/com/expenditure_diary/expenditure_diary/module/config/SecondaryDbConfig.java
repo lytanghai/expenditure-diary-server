@@ -1,6 +1,8 @@
 package com.expenditure_diary.expenditure_diary.module.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +15,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(
@@ -35,17 +35,12 @@ public class SecondaryDbConfig {
     }
 
     @Bean(name = "secondaryEntityManager")
-    public LocalContainerEntityManagerFactoryBean secondaryEntityManager() {
+    public LocalContainerEntityManagerFactoryBean secondaryEntityManager(@Autowired JpaProperties jpaProperties) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(secondaryDataSource());
         em.setPackagesToScan("com.expenditure_diary.expenditure_diary.module.model");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-
-        Map<String, Object> props = new HashMap<>();
-        props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        props.put("hibernate.hbm2ddl.auto", "update");
-        em.setJpaPropertyMap(props);
-
+        em.setJpaPropertyMap(jpaProperties.getProperties());
         return em;
     }
 
