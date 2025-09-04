@@ -13,6 +13,11 @@ spring:
     url: ${DB_HOST}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    hikari:
+      initialization-fail-timeout: -1  # never fail at startup if DB unavailable
+      connection-timeout: 30000        # 30s per try
+      validation-timeout: 5000
+      maximum-pool-size: 10
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:

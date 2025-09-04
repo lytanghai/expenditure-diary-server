@@ -11,6 +11,11 @@ spring:
       username: postgres
       password: 309927605
       driver-class-name: org.postgresql.Driver
+      hikari:
+        initialization-fail-timeout: -1
+        connection-timeout: 30000
+        validation-timeout: 5000
+        maximum-pool-size: 10
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
