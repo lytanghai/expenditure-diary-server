@@ -40,7 +40,7 @@ server:
 
 setting:
   enableSaveLog: ${ENABLE_SAVE_LOG}
-
+  enableRegiser: ${ENABLE_REGISTER}
 
 
 app:
