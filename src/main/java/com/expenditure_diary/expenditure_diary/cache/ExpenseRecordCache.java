@@ -1,6 +1,6 @@
 package com.expenditure_diary.expenditure_diary.cache;
 
-import com.expenditure_diary.expenditure_diary.expense_tracking.entity.ExpenseTracker;
+import com.expenditure_diary.expenditure_diary.entity.ExpenseTracker;
 import com.expenditure_diary.expenditure_diary.util.DateUtil;
 
 import java.time.Duration;

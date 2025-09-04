@@ -1,6 +1,4 @@
 spring:
-#  profiles:
-#    active: local
   application:
     name: expenditure-diary
   cloud:
@@ -14,42 +12,20 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     hikari:
-      initialization-fail-timeout: -1  # never fail at startup if DB unavailable
-      connection-timeout: 30000        # 30s per try
+      initialization-fail-timeout: -1
+      connection-timeout: 30000
       validation-timeout: 5000
       maximum-pool-size: 10
-    jpa:
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
-      hibernate:
-        ddl-auto: update
-      open-in-view: ${JPA_VIEW_MODE}
 
-    jwt:
-      secret_key: ${JWT_SECRET_KEY}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    open-in-view: ${JPA_VIEW_MODE}
 
-backend_server:
-  web_url: ${UI_WEB_URL}
-
-  auth:
-    users:
-      admin_usr: ${ADMIN_USERNAME}
-      admin_pwd: ${ADMIN_PASSWORD}
-
-telegram:
-  enable: ${TELEGRAM_BOT_ENABLE}
-  bot-token: ${TELEGRAM_BOT_TOKEN}
-  chat-id: ${TELEGRAM_CHAT_ID}
-
-server:
-  rate_limit: ${RATE_LIMIT}
-  servlet:
-    context-path: /expenditure-diary
-  port: 8080
+  jwt:
+    secret_key: ${JWT_SECRET_KEY}
 
 setting:
   enableSaveLog: ${ENABLE_SAVE_LOG}
-  enableRegiser: ${ENABLE_REGISTER}
-
-
-app:
-  version: 1.0.10
+  enableRegister: ${ENABLE_REGISTER}
