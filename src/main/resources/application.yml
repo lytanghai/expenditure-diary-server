@@ -1,6 +1,5 @@
 spring:
-#  profiles:
-#    active: local
+  profiles:?
   application:
     name: expenditure-diary
   cloud:
@@ -14,6 +13,9 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
     open-in-view: ${JPA_VIEW_MODE}
 
 backend_server:
