@@ -1,6 +1,6 @@
 package com.expenditure_diary.expenditure_diary.component;
 
-import com.expenditure_diary.expenditure_diary.module.repository.UserRepository;
+import com.expenditure_diary.expenditure_diary.authentication.repository.UserRepository;
 import com.expenditure_diary.expenditure_diary.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
