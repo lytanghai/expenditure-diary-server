@@ -45,7 +45,7 @@ server:
   rate_limit: 100
   servlet:
     context-path: /expenditure-diary
-  port: 8080
+  port: 8081
 
 app:
   version: 1.0.10
