@@ -8,10 +8,10 @@ import com.expenditure_diary.expenditure_diary.module.budget_planning.dto.req.Sa
 import com.expenditure_diary.expenditure_diary.module.budget_planning.dto.resp.DepositResp;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.req.ExpenseDeleteRequest;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.PaginatedResponse;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.DepositHistory;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.SavingPlan;
-import com.expenditure_diary.expenditure_diary.module.repository.secondary.DepositHistoryRepo;
-import com.expenditure_diary.expenditure_diary.module.repository.secondary.SavingPlanRepo;
+import com.expenditure_diary.expenditure_diary.module.model.DepositHistory;
+import com.expenditure_diary.expenditure_diary.module.model.SavingPlan;
+import com.expenditure_diary.expenditure_diary.module.repository.DepositHistoryRepo;
+import com.expenditure_diary.expenditure_diary.module.repository.SavingPlanRepo;
 import com.expenditure_diary.expenditure_diary.util.DateUtil;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
 import org.springframework.data.domain.Page;

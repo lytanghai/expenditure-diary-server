@@ -1,4 +1,4 @@
-package com.expenditure_diary.expenditure_diary.module.model.secondary;
+package com.expenditure_diary.expenditure_diary.module.model;
 
 import com.expenditure_diary.expenditure_diary.constant.Static;
 

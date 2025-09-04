@@ -1,4 +1,4 @@
-package com.expenditure_diary.expenditure_diary.module.repository.secondary;
+package com.expenditure_diary.expenditure_diary.module.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,6 +1,6 @@
-package com.expenditure_diary.expenditure_diary.module.repository.primary;
+package com.expenditure_diary.expenditure_diary.module.repository;
 
-import com.expenditure_diary.expenditure_diary.module.model.secondary.Logs;
+import com.expenditure_diary.expenditure_diary.module.model.Logs;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

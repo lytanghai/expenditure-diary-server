@@ -8,13 +8,12 @@ import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.req.E
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.req.ExpenseDeleteRequest;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.req.ExpenseFilterRequest;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.*;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.ExpenseTracker;
-import com.expenditure_diary.expenditure_diary.module.repository.secondary.ExpenseTrackerCustomRepo;
-import com.expenditure_diary.expenditure_diary.module.repository.secondary.ExpenseTrackerRepo;
+import com.expenditure_diary.expenditure_diary.module.model.ExpenseTracker;
+import com.expenditure_diary.expenditure_diary.module.repository.ExpenseTrackerCustomRepo;
+import com.expenditure_diary.expenditure_diary.module.repository.ExpenseTrackerRepo;
 import com.expenditure_diary.expenditure_diary.util.AmountUtil;
 import com.expenditure_diary.expenditure_diary.util.DateUtil;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

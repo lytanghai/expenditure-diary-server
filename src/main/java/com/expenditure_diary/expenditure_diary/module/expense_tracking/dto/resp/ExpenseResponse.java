@@ -1,6 +1,6 @@
 package com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp;
 
-import com.expenditure_diary.expenditure_diary.module.model.secondary.ExpenseTracker;
+import com.expenditure_diary.expenditure_diary.module.model.ExpenseTracker;
 
 import java.math.BigDecimal;
 

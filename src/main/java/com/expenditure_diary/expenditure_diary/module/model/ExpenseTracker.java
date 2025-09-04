@@ -1,4 +1,4 @@
-package com.expenditure_diary.expenditure_diary.module.model.secondary;
+package com.expenditure_diary.expenditure_diary.module.model;
 
 import com.expenditure_diary.expenditure_diary.constant.Static;
 
@@ -6,25 +6,25 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "profit_tracker")
-public class ProfitTracker {
+@Table(name = "02. expense_tracker")
+public class ExpenseTracker {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Static.PROFIT_TRACKER_SEQ)
-    @SequenceGenerator(name = Static.PROFIT_TRACKER_SEQ , sequenceName = Static.PROFIT_TRACKER_SEQ, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Static.EXPENSE_TRACKER_SEQ)
+    @SequenceGenerator(name = Static.EXPENSE_TRACKER_SEQ , sequenceName = Static.EXPENSE_TRACKER_SEQ, allocationSize = 1)
     private Integer id;
 
-    @Column(name = "date")
-    private String date;
+    @Column(name = "expense_date")
+    private String expenseDate;
 
     @Column(name = "category")
     private String category;
 
-    @Column(name = "pnl")
-    private BigDecimal pnl;
+    @Column(name = "item")
+    private String item;
 
-    @Column(name = "pnl_type")
-    private String pnlType;
+    @Column(name = "price")
+    private BigDecimal price;
 
     @Column(name = "currency")
     private String currency;
@@ -38,28 +38,28 @@ public class ProfitTracker {
     @Column(name = "note")
     private String note;
 
-    public ProfitTracker(Integer id, String pnlType, String category, BigDecimal pnl, String date, String currency) {
-        this.id = id;
-        this.pnlType = pnlType;
-        this.category = category;
-        this.pnl = pnl;
-        this.date = date;
-        this.currency = currency;
+    public ExpenseTracker() {
     }
 
-    public ProfitTracker() {
-    }
-
-    public ProfitTracker(Integer id, String date, String category, BigDecimal pnl, String pnlType, String currency, BigDecimal convertedPrice, String convertedCurrency, String note) {
+    public ExpenseTracker(Integer id, String expenseDate, String category, String item, BigDecimal price, String currency, BigDecimal convertedPrice, String convertedCurrency, String note) {
         this.id = id;
-        this.date = date;
+        this.expenseDate = expenseDate;
         this.category = category;
-        this.pnl = pnl;
-        this.pnlType = pnlType;
+        this.item = item;
+        this.price = price;
         this.currency = currency;
         this.convertedPrice = convertedPrice;
         this.convertedCurrency = convertedCurrency;
         this.note = note;
+    }
+
+    public ExpenseTracker(Integer id, String item, String category, BigDecimal price, String expenseDate, String currency) {
+        this.id = id;
+        this.expenseDate = expenseDate;
+        this.category = category;
+        this.item = item;
+        this.price = price;
+        this.currency = currency;
     }
 
     public Integer getId() {
@@ -70,12 +70,12 @@ public class ProfitTracker {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getExpenseDate() {
+        return expenseDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setExpenseDate(String expenseDate) {
+        this.expenseDate = expenseDate;
     }
 
     public String getCategory() {
@@ -86,20 +86,20 @@ public class ProfitTracker {
         this.category = category;
     }
 
-    public BigDecimal getPnl() {
-        return pnl;
+    public String getItem() {
+        return item;
     }
 
-    public void setPnl(BigDecimal pnl) {
-        this.pnl = pnl;
+    public void setItem(String item) {
+        this.item = item;
     }
 
-    public String getPnlType() {
-        return pnlType;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setPnlType(String pnlType) {
-        this.pnlType = pnlType;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getCurrency() {

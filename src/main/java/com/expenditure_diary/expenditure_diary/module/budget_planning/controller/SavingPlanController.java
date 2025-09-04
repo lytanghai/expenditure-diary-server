@@ -6,8 +6,8 @@ import com.expenditure_diary.expenditure_diary.module.budget_planning.dto.resp.D
 import com.expenditure_diary.expenditure_diary.module.budget_planning.service.SavingPlanService;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.req.ExpenseDeleteRequest;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.PaginatedResponse;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.DepositHistory;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.SavingPlan;
+import com.expenditure_diary.expenditure_diary.module.model.DepositHistory;
+import com.expenditure_diary.expenditure_diary.module.model.SavingPlan;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
 import org.springframework.web.bind.annotation.*;
 

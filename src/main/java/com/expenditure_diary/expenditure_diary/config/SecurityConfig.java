@@ -25,7 +25,6 @@ public class SecurityConfig {
     @Value("${backend_server.web_url}")
     private String SERVER_URL;
 
-
     @Autowired
     private JwtAuthFilter jwtFilter;
 
@@ -58,7 +57,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173")); // frontend origin
+        config.setAllowedOrigins(List.of(SERVER_URL)); // frontend origin
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);

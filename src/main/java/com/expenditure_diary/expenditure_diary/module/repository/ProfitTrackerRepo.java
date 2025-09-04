@@ -1,7 +1,7 @@
-package com.expenditure_diary.expenditure_diary.module.repository.secondary;
+package com.expenditure_diary.expenditure_diary.module.repository;
 
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.CurrencyTotalProjection;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.ProfitTracker;
+import com.expenditure_diary.expenditure_diary.module.model.ProfitTracker;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

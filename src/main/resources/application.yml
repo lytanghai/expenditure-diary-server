@@ -10,8 +10,7 @@ spring:
           enabled: true
   datasource:
     driver-class-name: org.postgresql.Driver
-#      url: ${DB_HOST_SECONDARY}
-    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres
+    url: ${DB_HOST_SECONDARY}
     username: ${DB_USERNAME_SECONDARY}
     password: ${DB_PASSWORD_SECONDARY}
   jpa:
@@ -19,6 +18,7 @@ spring:
 
 backend_server:
   web_url: ${SERVER_URL}
+  allow_register: ${allow_register}
 
 jwt:
   secret_key: ${JWT_SECRET_KEY}
@@ -37,6 +37,10 @@ server:
   servlet:
     context-path: /expenditure-diary
   port: 8080
+
+setting:
+  enableSaveLog: ${ENABLE_SAVE_LOG}
+
 
 app:
   version: 1.0.10

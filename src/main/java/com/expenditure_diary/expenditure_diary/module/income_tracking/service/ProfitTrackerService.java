@@ -11,8 +11,8 @@ import com.expenditure_diary.expenditure_diary.module.income_tracking.dto.req.Pr
 import com.expenditure_diary.expenditure_diary.module.income_tracking.dto.req.ProfitFilterRequest;
 import com.expenditure_diary.expenditure_diary.module.income_tracking.dto.resp.ProfitResponse;
 import com.expenditure_diary.expenditure_diary.module.income_tracking.dto.resp.ProfitTrackerListResp;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.ProfitTracker;
-import com.expenditure_diary.expenditure_diary.module.repository.secondary.ProfitTrackerRepo;
+import com.expenditure_diary.expenditure_diary.module.model.ProfitTracker;
+import com.expenditure_diary.expenditure_diary.module.repository.ProfitTrackerRepo;
 import com.expenditure_diary.expenditure_diary.util.AmountUtil;
 import com.expenditure_diary.expenditure_diary.util.DateUtil;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;

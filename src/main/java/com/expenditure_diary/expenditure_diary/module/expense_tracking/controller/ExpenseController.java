@@ -8,7 +8,7 @@ import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.PaginatedResponse;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.ProExpTrackerResp;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.service.ExpenseService;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.ExpenseTracker;
+import com.expenditure_diary.expenditure_diary.module.model.ExpenseTracker;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

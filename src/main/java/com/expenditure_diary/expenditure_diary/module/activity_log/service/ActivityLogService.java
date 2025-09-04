@@ -1,8 +1,8 @@
 package com.expenditure_diary.expenditure_diary.module.activity_log.service;
 
 import com.expenditure_diary.expenditure_diary.component.SettingProperties;
-import com.expenditure_diary.expenditure_diary.module.model.secondary.Logs;
-import com.expenditure_diary.expenditure_diary.module.repository.primary.LogsRepo;
+import com.expenditure_diary.expenditure_diary.module.model.Logs;
+import com.expenditure_diary.expenditure_diary.module.repository.LogsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

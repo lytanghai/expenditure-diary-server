@@ -1,6 +1,6 @@
-package com.expenditure_diary.expenditure_diary.module.repository.secondary;
+package com.expenditure_diary.expenditure_diary.module.repository;
 
-import com.expenditure_diary.expenditure_diary.module.model.secondary.DepositHistory;
+import com.expenditure_diary.expenditure_diary.module.model.DepositHistory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
