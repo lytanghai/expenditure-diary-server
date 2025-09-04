@@ -1,5 +1,6 @@
 package com.expenditure_diary.expenditure_diary.module.authentication.service;
 
+import com.expenditure_diary.expenditure_diary.component.SettingProperties;
 import com.expenditure_diary.expenditure_diary.constant.Constant;
 import com.expenditure_diary.expenditure_diary.dto.resp.CommonResp;
 import com.expenditure_diary.expenditure_diary.exception.ServiceException;
@@ -31,6 +32,7 @@ public class AuthenticationService {
     @Autowired private PasswordEncoder encoder;
     @Autowired private JwtUtil jwtUtil;
     @Autowired private ActivityLogService activityLogService;
+    @Autowired private SettingProperties settingProperties;
 
     private static final String USER_MUST_ENTER_PWD = "User must enter password!";
     private static final String USER_MUST_ENTER_OLD_PWD = "User must enter old password!";
@@ -83,44 +85,47 @@ public class AuthenticationService {
 
     }
     public ResponseBuilder<RegisterResp> register(RegisterReq registerReq) {
+        if(settingProperties.isEnableRegister()) {
+            String username = registerReq.getUsername();
+            String email = registerReq.getEmail();
+            String password = registerReq.getPassword();
 
-        String username = registerReq.getUsername();
-        String email = registerReq.getEmail();
-        String password = registerReq.getPassword();
+            validate("R" ,username, password, email);
 
-        validate("R" ,username, password, email);
+            RegisterResp response = new RegisterResp();
 
-        RegisterResp response = new RegisterResp();
+            try {
+                List<UserEntity> findByUsernameOrEmail = userRepo.findByUsernameOrEmail(username, email);
 
-        try {
-            List<UserEntity> findByUsernameOrEmail = userRepo.findByUsernameOrEmail(username, email);
+                if(!findByUsernameOrEmail.isEmpty())
+                    throw new ServiceException(Constant.UNEXPECTED_ERROR, USER_EML_EXIST);
 
-            if(!findByUsernameOrEmail.isEmpty())
-                throw new ServiceException(Constant.UNEXPECTED_ERROR, USER_EML_EXIST);
+                UserEntity newUser = new UserEntity();
+                newUser.setUsername(username);
+                newUser.setEmail(email);
+                newUser.setPassword(encoder.encode(registerReq.getPassword()));
+                newUser.setCreatedAt(LocalDateTime.now());
 
-            UserEntity newUser = new UserEntity();
-            newUser.setUsername(username);
-            newUser.setEmail(email);
-            newUser.setPassword(encoder.encode(registerReq.getPassword()));
-            newUser.setCreatedAt(LocalDateTime.now());
+                userRepo.save(newUser);
+                response.setResult(Constant.SUCCESS);
+                response.setEmail(email);
+                response.setCreatedAtStr(DateUtil.format(newUser.getCreatedAt().toString()));
+                response.setUsername(username);
 
-            userRepo.save(newUser);
-            response.setResult(Constant.SUCCESS);
-            response.setEmail(email);
-            response.setCreatedAtStr(DateUtil.format(newUser.getCreatedAt().toString()));
-            response.setUsername(username);
+                userId = newUser.getId();
 
-            userId = newUser.getId();
+                activityLogService.insert(USER_REGISTER, newUser.getId(), Constant.SUCCESS, Constant.SUCCESS);
 
-            activityLogService.insert(USER_REGISTER, newUser.getId(), Constant.SUCCESS, Constant.SUCCESS);
+            }catch (ServiceException exception) {
+                response.setResult(Constant.UNEXPECTED_ERROR);
+                response.setDetail(exception.getMessage());
+                activityLogService.insert(USER_REGISTER, userId, Constant.UNEXPECTED_ERROR, exception.getMessage());
+            }
 
-        }catch (ServiceException exception) {
-            response.setResult(Constant.UNEXPECTED_ERROR);
-            response.setDetail(exception.getMessage());
-            activityLogService.insert(USER_REGISTER, userId, Constant.UNEXPECTED_ERROR, exception.getMessage());
+            return ResponseBuilder.success(response);
+        } else {
+            return null;
         }
-
-        return ResponseBuilder.success(response);
     }
 
     public ResponseBuilder<LoginResp> login(LoginReq loginReq) throws InterruptedException {

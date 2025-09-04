@@ -42,5 +42,6 @@ setting:
   enableSaveLog: ${ENABLE_SAVE_LOG}
 
 
+
 app:
   version: 1.0.10
