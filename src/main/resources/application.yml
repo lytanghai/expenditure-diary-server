@@ -18,18 +18,18 @@ spring:
       connection-timeout: 30000        # 30s per try
       validation-timeout: 5000
       maximum-pool-size: 10
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
-    open-in-view: ${JPA_VIEW_MODE}
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      hibernate:
+        ddl-auto: update
+      open-in-view: ${JPA_VIEW_MODE}
+
+    jwt:
+      secret_key: ${JWT_SECRET_KEY}
 
 backend_server:
-  web_url: ${SERVER_URL}
-  allow_register: ${ALLOW_REGISTER}
+  web_url: ${UI_WEB_URL}
 
-jwt:
-  secret_key: ${JWT_SECRET_KEY}
   auth:
     users:
       admin_usr: ${ADMIN_USERNAME}
