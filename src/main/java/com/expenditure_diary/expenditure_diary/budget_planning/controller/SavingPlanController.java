@@ -12,7 +12,7 @@ import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/03. saving_plan")
+@RequestMapping("/saving_plan")
 public class SavingPlanController {
 
     private final SavingPlanService savingPlanService;

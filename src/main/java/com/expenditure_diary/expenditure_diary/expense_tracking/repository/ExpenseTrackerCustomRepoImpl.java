@@ -16,7 +16,7 @@ public class ExpenseTrackerCustomRepoImpl implements ExpenseTrackerCustomRepo {
     @Override
     public void truncateAndResetSequence(String entity) {
         if ("EXPENSE_TRACKER".equals(entity)) {
-            entityManager.createNativeQuery("DELETE FROM 02. expense_tracker").executeUpdate();
+            entityManager.createNativeQuery("DELETE FROM expense_tracker").executeUpdate();
             entityManager.createNativeQuery("ALTER SEQUENCE expense_tracker_id_seq RESTART WITH 1").executeUpdate();
         } else if ("PROFIT_TRACKER".equals(entity)) {
             entityManager.createNativeQuery("DELETE FROM profit_tracker").executeUpdate();

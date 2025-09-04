@@ -17,16 +17,16 @@ import java.util.List;
 @Repository
 public interface ExpenseTrackerRepo extends JpaRepository<ExpenseTracker, Integer>, ExpenseTrackerCustomRepo, JpaSpecificationExecutor<ExpenseTracker> {
 
-    @Query(value = "SELECT * FROM 02. expense_tracker \n" +
+    @Query(value = "SELECT * FROM expense_tracker \n" +
             "    WHERE to_char(to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS'), 'YYYY-MM') = :month",
-            countQuery = "SELECT count(*) FROM 02. expense_tracker \n" +
+            countQuery = "SELECT count(*) FROM expense_tracker \n" +
             "    WHERE to_char(to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS'), 'YYYY-MM') = :month",
             nativeQuery = true)
     Page<ExpenseTracker> findByMonth(String month, Pageable pageable);
 
-    @Query(value = "SELECT * FROM 02. expense_tracker " +
+    @Query(value = "SELECT * FROM expense_tracker " +
             "WHERE to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS') BETWEEN CAST(:startDate AS timestamp) AND CAST(:endDate AS timestamp)",
-            countQuery = "SELECT count(*) FROM 02. expense_tracker " +
+            countQuery = "SELECT count(*) FROM expense_tracker " +
                     "WHERE to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS') BETWEEN CAST(:startDate AS timestamp) AND CAST(:endDate AS timestamp)",
             nativeQuery = true)
     Page<ExpenseTracker> findByDateRange(@Param("startDate") String startDate,
@@ -34,7 +34,7 @@ public interface ExpenseTrackerRepo extends JpaRepository<ExpenseTracker, Intege
                                          Pageable pageable);
 
 
-    @Query(value = "SELECT * FROM 02. expense_tracker\n" +
+    @Query(value = "SELECT * FROM expense_tracker\n" +
             "    WHERE to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS')\n" +
             "          BETWEEN to_timestamp(:startDate, 'DD-MM-YYYY HH24:MI:SS')\n" +
             "              AND to_timestamp(:endDate, 'DD-MM-YYYY HH24:MI:SS')\n" +
@@ -45,7 +45,7 @@ public interface ExpenseTrackerRepo extends JpaRepository<ExpenseTracker, Intege
     );
 
     @Query(value = " SELECT et.currency,  CAST(SUM(et.price) AS DECIMAL(18, 2)) AS total" +
-            "    FROM 02. expense_tracker et\n" +
+            "    FROM expense_tracker et\n" +
             "    WHERE TO_TIMESTAMP(et.expense_date, 'DD-MM-YYYY HH24:MI:SS')\n" +
             "          BETWEEN TO_TIMESTAMP(:start, 'DD-MM-YYYY HH24:MI:SS')\n" +
             "              AND TO_TIMESTAMP(:end, 'DD-MM-YYYY HH24:MI:SS')\n" +
@@ -59,10 +59,10 @@ public interface ExpenseTrackerRepo extends JpaRepository<ExpenseTracker, Intege
 
     @Query(
             value = "SELECT et.currency, SUM(et.price) AS total " +
-                    "FROM 02. expense_tracker et " +
+                    "FROM expense_tracker et " +
                     "WHERE TO_CHAR(TO_TIMESTAMP(et.expense_date, 'DD-MM-YYYY HH24:MI:SS'), 'YYYY-MM') = :month GROUP BY et.currency",
             countQuery = "SELECT COUNT(*) " +
-                    "FROM 02. expense_tracker et " +
+                    "FROM expense_tracker et " +
                     "WHERE TO_CHAR(TO_TIMESTAMP(et.expense_date, 'DD-MM-YYYY HH24:MI:SS'), 'YYYY-MM') = :month",
             nativeQuery = true
     )
@@ -70,7 +70,7 @@ public interface ExpenseTrackerRepo extends JpaRepository<ExpenseTracker, Intege
 
     @Modifying
     @Transactional
-    @Query(value = " DELETE FROM 02. expense_tracker\n" +
+    @Query(value = " DELETE FROM expense_tracker\n" +
             "        WHERE to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS') < \n" +
             "              now() - interval '3 months'", nativeQuery = true)
     int deleteRecordsOlderThanThreeMonths();

@@ -10,15 +10,15 @@ spring:
           enabled: true
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DB_HOST_SECONDARY}
-    username: ${DB_USERNAME_SECONDARY}
-    password: ${DB_PASSWORD_SECONDARY}
+    url: ${DB_HOST}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     open-in-view: ${JPA_VIEW_MODE}
 
 backend_server:
   web_url: ${SERVER_URL}
-  allow_register: ${allow_register}
+  allow_register: ${ALLOW_REGISTER}
 
 jwt:
   secret_key: ${JWT_SECRET_KEY}
