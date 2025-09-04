@@ -11,6 +11,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(
@@ -38,7 +39,12 @@ public class PrimaryDbConfig {
         em.setDataSource(primaryDataSource());
         em.setPackagesToScan("com.expenditure_diary.expenditure_diary.module.model");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaPropertyMap(new HashMap<>());
+
+        Map<String, Object> props = new HashMap<>();
+        props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        props.put("hibernate.hbm2ddl.auto", "update"); // or validate / none
+        em.setJpaPropertyMap(props);
+
         return em;
     }
 
