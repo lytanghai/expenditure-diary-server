@@ -1,15 +1,15 @@
 package com.expenditure_diary.expenditure_diary.module.repository.primary;
 
-import com.expenditure_diary.expenditure_diary.annotate.PrimaryDbRepository;
-import com.expenditure_diary.expenditure_diary.module.model.primary.UserEntity;
+import com.expenditure_diary.expenditure_diary.module.model.secondary.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@PrimaryDbRepository
+@Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUsername(String username);
     Boolean existsByUsername(String username);

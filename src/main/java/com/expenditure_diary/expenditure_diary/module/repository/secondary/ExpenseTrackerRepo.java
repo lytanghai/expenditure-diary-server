@@ -1,6 +1,5 @@
 package com.expenditure_diary.expenditure_diary.module.repository.secondary;
 
-import com.expenditure_diary.expenditure_diary.annotate.SecondaryDbRepository;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.CurrencyTotalProjection;
 import com.expenditure_diary.expenditure_diary.module.model.secondary.ExpenseTracker;
 import org.springframework.data.domain.Page;
@@ -10,11 +9,12 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-@SecondaryDbRepository
+@Repository
 public interface ExpenseTrackerRepo extends JpaRepository<ExpenseTracker, Integer>, ExpenseTrackerCustomRepo, JpaSpecificationExecutor<ExpenseTracker> {
 
     @Query(value = "SELECT * FROM 02. expense_tracker \n" +

@@ -1,6 +1,5 @@
 package com.expenditure_diary.expenditure_diary.module.repository.secondary;
 
-import com.expenditure_diary.expenditure_diary.annotate.SecondaryDbRepository;
 import com.expenditure_diary.expenditure_diary.module.expense_tracking.dto.resp.CurrencyTotalProjection;
 import com.expenditure_diary.expenditure_diary.module.model.secondary.ProfitTracker;
 import org.springframework.data.domain.Page;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@SecondaryDbRepository
+@Repository
 public interface ProfitTrackerRepo extends JpaRepository<ProfitTracker, Integer> , ExpenseTrackerCustomRepo, JpaSpecificationExecutor<ProfitTracker> {
 
     @Query(value = "SELECT * FROM profit_tracker \n" +

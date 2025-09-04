@@ -1,4 +1,4 @@
-package com.expenditure_diary.expenditure_diary.module.model.primary;
+package com.expenditure_diary.expenditure_diary.module.model.secondary;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

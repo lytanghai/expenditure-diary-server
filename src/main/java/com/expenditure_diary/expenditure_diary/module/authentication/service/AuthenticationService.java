@@ -9,7 +9,7 @@ import com.expenditure_diary.expenditure_diary.module.authentication.dto.req.Log
 import com.expenditure_diary.expenditure_diary.module.authentication.dto.req.RegisterReq;
 import com.expenditure_diary.expenditure_diary.module.authentication.dto.resp.LoginResp;
 import com.expenditure_diary.expenditure_diary.module.authentication.dto.resp.RegisterResp;
-import com.expenditure_diary.expenditure_diary.module.model.primary.UserEntity;
+import com.expenditure_diary.expenditure_diary.module.model.secondary.UserEntity;
 import com.expenditure_diary.expenditure_diary.module.repository.primary.UserRepository;
 import com.expenditure_diary.expenditure_diary.util.DateUtil;
 import com.expenditure_diary.expenditure_diary.util.JwtUtil;
