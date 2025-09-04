@@ -29,3 +29,6 @@ spring:
 setting:
   enableSaveLog: ${ENABLE_SAVE_LOG}
   enableRegister: ${ENABLE_REGISTER}
+
+backend_server:
+  web_url: ${UI_WEB_URL}
