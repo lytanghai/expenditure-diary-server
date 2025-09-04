@@ -1,5 +1,6 @@
 spring:
-  profiles:?
+#  profiles:
+#    active: local
   application:
     name: expenditure-diary
   cloud:
