@@ -1,4 +1,6 @@
 spring:
+#  profiles:
+#    active: local
   application:
     name: expenditure-diary
   cloud:
@@ -26,9 +28,8 @@ spring:
   jwt:
     secret_key: ${JWT_SECRET_KEY}
 
-setting:
-  enableSaveLog: ${ENABLE_SAVE_LOG}
-  enableRegister: ${ENABLE_REGISTER}
+server:
+  port: 8080
 
 backend_server:
   web_url: ${UI_WEB_URL}
