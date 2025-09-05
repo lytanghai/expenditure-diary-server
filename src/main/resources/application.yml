@@ -29,6 +29,8 @@ jwt:
   secret_key: ${JWT_SECRET_KEY}
 
 server:
+  servlet:
+    context-path: /expenditure-diary
   port: 8080
 
 backend_server:
