@@ -7,15 +7,15 @@ spring:
         locator:
           enabled: true
   datasource:
-      url: jdbc:postgresql://localhost:5432/configure
+      url: jdbc:postgresql://localhost:5432/postgres
       username: postgres
-      password: 309927605
+      password: admin
       driver-class-name: org.postgresql.Driver
-      hikari:
-        initialization-fail-timeout: -1
-        connection-timeout: 30000
-        validation-timeout: 5000
-        maximum-pool-size: 10
+#      hikari:
+#        initialization-fail-timeout: -1
+#        connection-timeout: 30000
+#        validation-timeout: 5000
+#        maximum-pool-size: 10
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -40,12 +40,16 @@ telegram:
 
 setting:
   enableSaveLog: false
+  twelveDataUrl: https://api.twelvedata.com/time_series?symbol=pair&interval=itzmin&outputsize=50&apikey=
+  twelveDataApiKey: fa4558aef2b5486ca4894bd76dbea032
 
 server:
   rate_limit: 100
   servlet:
     context-path: /expenditure-diary
   port: 8081
+
+
 
 app:
   version: 1.0.10

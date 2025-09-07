@@ -28,6 +28,10 @@ spring:
 jwt:
   secret_key: ${JWT_SECRET_KEY}
 
+setting:
+  twelveDataUrl: ${TWELVE_URL}
+  twelveDataApiKey: ${TWELVE_API}
+
 server:
   servlet:
     context-path: /expenditure-diary

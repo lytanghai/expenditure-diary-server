@@ -9,6 +9,25 @@ public class SettingProperties {
     private Boolean enableSaveLog;
     private boolean enableRegister;
 
+    private String twelveDataUrl;
+    private String twelveDataApiKey;
+
+    public String getTwelveDataUrl() {
+        return twelveDataUrl;
+    }
+
+    public void setTwelveDataUrl(String twelveDataUrl) {
+        this.twelveDataUrl = twelveDataUrl;
+    }
+
+    public String getTwelveDataApiKey() {
+        return twelveDataApiKey;
+    }
+
+    public void setTwelveDataApiKey(String twelveDataApiKey) {
+        this.twelveDataApiKey = twelveDataApiKey;
+    }
+
     public boolean isEnableRegister() {
         return enableRegister;
     }
