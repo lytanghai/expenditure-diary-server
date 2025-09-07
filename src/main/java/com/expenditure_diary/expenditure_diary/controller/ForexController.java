@@ -16,6 +16,26 @@ public class ForexController {
     @Autowired
     private ForexSignalService forexSignalService;
 
+    /**
+     * {
+     * 	"status": "success",
+     * 	"trace_id": null,
+     * 	"message": "OK",
+     * 	"date": "07-09-2025 18:35:55",
+     * 	"data": {
+     * 		"pair": "XAU/USD",
+     * 		"signal": "Neutral",
+     * 		"date": "2025-09-07 18:35",
+     * 		"current_session": "Neutral",
+     * 		"win_rate": "44.44 % -> Moderate reliability, use extra confirmation before trading.",
+     * 		"interval": "5 minutes",
+     * 		"rsi": "RSI(14): 44.25 (Weak Bearish) -> (RSI mid-range) = Moderate trend, may follow EMA direction but confirm with volatility.",
+     * 		"atr": "ATR(14): 1.80786 (~18079 pips) -> High volatility, big opportunities but also bigger risk. Use tight stop-loss.",
+     * 		"recent_performance": "Last 5 trades: 2 Wins / 3 Losses (40.00%)",
+     * 		"action": "Strategy historical win rate is low (44.44%). Skip trade."
+     *        }
+     * }
+     * */
     @GetMapping("/analyze")
     public ResponseBuilder<ForexSignalResp> signalProvider(
             @RequestParam(defaultValue = "pair") String pair, @RequestParam(defaultValue = "5") String interval) throws Exception {
