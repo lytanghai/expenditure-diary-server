@@ -24,6 +24,17 @@ public final class DateUtil extends DateUtils {
     // Accepts "HH:mm:ss" or "H:mm:ss" (e.g. 7:05:09)
     private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("H:mm:ss");
 
+    public static String toPhnomPenhTime(String input) {
+        ZonedDateTime sourceDateTime = ZonedDateTime.parse(input);
+
+        // Convert to Asia/Phnom_Penh time zone
+        ZonedDateTime phnomPenhTime = sourceDateTime.withZoneSameInstant(ZoneId.of("Asia/Phnom_Penh"));
+
+        // Format output
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z");
+        return phnomPenhTime.format(formatter);
+    }
+
     /** Returns "AM" if 00:00:00–11:59:59, otherwise "PM". */
     public static String getAmPm(String timeStr) {
         LocalTime t = LocalTime.parse(timeStr, FORMAT);   // throws DateTimeParseException if bad format

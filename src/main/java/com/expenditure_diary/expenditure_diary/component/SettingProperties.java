@@ -12,6 +12,17 @@ public class SettingProperties {
     private String twelveDataUrl;
     private String twelveDataApiKey;
 
+    private String forexFactoryThisWeekJson;
+
+
+    public String getForexFactoryThisWeekJson() {
+        return forexFactoryThisWeekJson;
+    }
+
+    public void setForexFactoryThisWeekJson(String forexFactoryThisWeekJson) {
+        this.forexFactoryThisWeekJson = forexFactoryThisWeekJson;
+    }
+
     public String getTwelveDataUrl() {
         return twelveDataUrl;
     }

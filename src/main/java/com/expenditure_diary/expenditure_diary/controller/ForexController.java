@@ -1,16 +1,17 @@
 package com.expenditure_diary.expenditure_diary.controller;
 
+import com.expenditure_diary.expenditure_diary.dto.req.FilterReq;
+import com.expenditure_diary.expenditure_diary.dto.resp.ForexCalendarResp;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexSignalResp;
 import com.expenditure_diary.expenditure_diary.service.ForexSignalService;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("forex")
+@RequestMapping("public/forex")
 public class ForexController {
 
     @Autowired
@@ -40,5 +41,10 @@ public class ForexController {
     public ResponseBuilder<ForexSignalResp> signalProvider(
             @RequestParam(defaultValue = "pair") String pair, @RequestParam(defaultValue = "5") String interval) throws Exception {
         return forexSignalService.signalProvider(pair, interval);
+    }
+
+    @PostMapping("/calendar-event")
+    public ResponseBuilder<List<ForexCalendarResp>> calendarEvent(@RequestBody FilterReq filterReq) {
+        return forexSignalService.calendarEvent(filterReq);
     }
 }
