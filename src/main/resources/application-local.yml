@@ -42,6 +42,8 @@ setting:
   enableSaveLog: false
   twelveDataUrl: https://api.twelvedata.com/time_series?symbol=pair&interval=itzmin&outputsize=50&apikey=
   twelveDataApiKey: fa4558aef2b5486ca4894bd76dbea032
+  forexFactoryThisWeekJson: https://nfs.faireconomy.media/ff_calendar_thisweek.json
+
 
 server:
   rate_limit: 100

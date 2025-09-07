@@ -188,12 +188,8 @@ public class ForexSignalService {
         }
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = settingProperties.getForexFactoryThisWeekJson() == null
-                ? "https://nfs.faireconomy.media/ff_calendar_thisweek.json"
-                : settingProperties.getForexFactoryThisWeekJson();
 
-        String resultStr = restTemplate.getForObject(url, String.class);
-
+        String resultStr = restTemplate.getForObject(settingProperties.getForexFactoryThisWeekJson(), String.class);
         JSONArray result = new JSONArray(resultStr);
 
         List<ForexCalendarResp> responseList = new ArrayList<>();

@@ -1,6 +1,6 @@
 spring:
-  profiles:
-    active: local
+#  profiles:
+#    active: local
   application:
     name: expenditure-diary
   cloud:
@@ -31,6 +31,7 @@ jwt:
 setting:
   twelveDataUrl: ${TWELVE_URL}
   twelveDataApiKey: ${TWELVE_API}
+  forexFactoryThisWeekJson: ${FOREX_FACTORY_JSON:https://nfs.faireconomy.media/ff_calendar_thisweek.json}
 
 server:
   servlet:
