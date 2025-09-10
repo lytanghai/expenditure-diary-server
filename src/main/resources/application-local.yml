@@ -7,9 +7,14 @@ spring:
         locator:
           enabled: true
   datasource:
-      url: jdbc:postgresql://localhost:5432/postgres
+#      Home
+#      url: jdbc:postgresql://localhost:5432/postgres
+#      username: postgres
+#      password: admin
+
+      url: jdbc:postgresql://localhost:5432/configure
       username: postgres
-      password: admin
+      password: 309927605
       driver-class-name: org.postgresql.Driver
 #      hikari:
 #        initialization-fail-timeout: -1

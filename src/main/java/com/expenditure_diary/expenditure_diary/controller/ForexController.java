@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("public/forex")
+@RequestMapping("forex")
 public class ForexController {
 
     @Autowired
@@ -37,10 +37,18 @@ public class ForexController {
      *        }
      * }
      * */
-    @GetMapping("/analyze")
-    public ResponseBuilder<ForexSignalResp> signalProvider(
+    @GetMapping("/ema-rsi-trend")
+    public ResponseBuilder<ForexSignalResp> EmaRsiTrend(
             @RequestParam(defaultValue = "pair") String pair, @RequestParam(defaultValue = "5") String interval) throws Exception {
-        return forexSignalService.signalProvider(pair, interval);
+        return forexSignalService.EmaRsiTrend(pair, interval);
+    }
+
+    @GetMapping("/breakout-scalper")
+    public ResponseBuilder<ForexSignalResp> breakoutScalper(
+            @RequestParam("pair") String pair,
+            @RequestParam(defaultValue = "5") String interval,
+            @RequestParam(defaultValue = "100") String outputSize) {
+        return forexSignalService.BreakoutScalper(pair, interval, outputSize);
     }
 
     @PostMapping("/calendar-event")

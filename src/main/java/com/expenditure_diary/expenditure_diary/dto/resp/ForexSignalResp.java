@@ -12,6 +12,53 @@ public class ForexSignalResp {
     private String recentPerformance;
     private String action;
 
+    private Double takeProfit;
+    private Double stopLoss;
+    private Double rangeHigh;
+    private Double rangeLow;
+    private Double lastClose;
+
+
+    public Double getTakeProfit() {
+        return takeProfit;
+    }
+
+    public void setTakeProfit(Double takeProfit) {
+        this.takeProfit = takeProfit;
+    }
+
+    public Double getStopLoss() {
+        return stopLoss;
+    }
+
+    public void setStopLoss(Double stopLoss) {
+        this.stopLoss = stopLoss;
+    }
+
+    public Double getRangeHigh() {
+        return rangeHigh;
+    }
+
+    public void setRangeHigh(Double rangeHigh) {
+        this.rangeHigh = rangeHigh;
+    }
+
+    public Double getRangeLow() {
+        return rangeLow;
+    }
+
+    public void setRangeLow(Double rangeLow) {
+        this.rangeLow = rangeLow;
+    }
+
+    public Double getLastClose() {
+        return lastClose;
+    }
+
+    public void setLastClose(Double lastClose) {
+        this.lastClose = lastClose;
+    }
+
     public String getAction() {
         return action;
     }

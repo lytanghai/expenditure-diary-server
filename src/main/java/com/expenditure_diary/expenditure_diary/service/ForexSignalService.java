@@ -17,14 +17,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +36,9 @@ public class ForexSignalService {
 
     // ---- Fetch OHLC data ----
     private List<Double> closes = new ArrayList<>();
+
     private List<Double> highs = new ArrayList<>();
+
     private List<Double> lows = new ArrayList<>();
 
     private void fetchOhlc(String pair, String interval) throws Exception {
@@ -98,8 +98,33 @@ public class ForexSignalService {
         }
     }
 
+    private List<ForexCalendarResp> filtered(List<ForexCalendarResp> raw, FilterReq filterReq) {
+        return raw.stream()
+                .filter(event -> {
+                    String country = filterReq.getCountry();
+                    return country == null || country.isEmpty() || event.getCountry().equalsIgnoreCase(country);
+                })
+                .filter(event -> {
+                    String impact = filterReq.getImpact();
+                    return impact == null || impact.isEmpty() || event.getImpact().equalsIgnoreCase(impact);
+                })
+                .filter(event -> {
+                    String date = filterReq.getDate();
+                    return date == null || date.isEmpty() || event.getDate().substring(0, 10).equals(date);
+                })
+                .filter(event -> {
+                    String title = filterReq.getTitle();
+                    if (title == null || title.isEmpty()) return true;
+
+                    String[] keywords = title.toLowerCase().split("\\s+");
+                    String eventTitle = event.getTitle().toLowerCase();
+                    return Arrays.stream(keywords).anyMatch(eventTitle::contains);
+                })
+                .collect(Collectors.toList());
+    }
+
     // ---- Main Provider ----
-    public ResponseBuilder<ForexSignalResp> signalProvider(String pair, String interval) throws Exception {
+    public ResponseBuilder<ForexSignalResp> EmaRsiTrend(String pair, String interval) throws Exception {
 
         fetchOhlc(pair, interval);
         double ema20 = ForexAnalyze.calculateEMA(closes, 20);
@@ -109,9 +134,9 @@ public class ForexSignalService {
         double lastPrice = closes.get(closes.size() - 1);
         String signal;
         if (ema20 > ema50 && rsi14 > 55) {
-            signal = "Buy at " + lastPrice;
+            signal = "Buy ~ " + lastPrice;
         } else if (ema20 < ema50 && rsi14 < 45) {
-            signal = "Sell at " + lastPrice;
+            signal = "Sell ~ " + lastPrice;
         } else {
             signal = "Neutral";
         }
@@ -155,31 +180,100 @@ public class ForexSignalService {
         return ResponseBuilder.success(forexSignalResp);
     }
 
-    private List<ForexCalendarResp> filtered(List<ForexCalendarResp> raw, FilterReq filterReq) {
-        return raw.stream()
-                .filter(event -> {
-                    String country = filterReq.getCountry();
-                    return country == null || country.isEmpty() || event.getCountry().equalsIgnoreCase(country);
-                })
-                .filter(event -> {
-                    String impact = filterReq.getImpact();
-                    return impact == null || impact.isEmpty() || event.getImpact().equalsIgnoreCase(impact);
-                })
-                .filter(event -> {
-                    String date = filterReq.getDate();
-                    return date == null || date.isEmpty() || event.getDate().substring(0, 10).equals(date);
-                })
-                .filter(event -> {
-                    String title = filterReq.getTitle();
-                    if (title == null || title.isEmpty()) return true;
+    public ResponseBuilder<ForexSignalResp> BreakoutScalper(String pair, String interval, String outputSize) {
+        try {
+            // 1. Fetch OHLC data from Twelve Data
+            String url = UriComponentsBuilder.fromHttpUrl("https://api.twelvedata.com/time_series")
+                    .queryParam("symbol", pair)
+                    .queryParam("interval", interval.concat("min"))
+                    .queryParam("outputsize", outputSize)
+                    .queryParam("apikey", settingProperties.getTwelveDataApiKey())
+                    .toUriString();
 
-                    String[] keywords = title.toLowerCase().split("\\s+");
-                    String eventTitle = event.getTitle().toLowerCase();
-                    return Arrays.stream(keywords).anyMatch(eventTitle::contains);
-                })
-                .collect(Collectors.toList());
+            RestTemplate restTemplate = new RestTemplate();
+            Map<String, Object> response = restTemplate.getForObject(url, Map.class);
+
+            if (response == null || !response.containsKey("values")) {
+                return ResponseBuilder.success(null);
+            }
+
+            List<Map<String, String>> values = (List<Map<String, String>>) response.get("values");
+            List<Double> highs = new ArrayList<>();
+            List<Double> lows = new ArrayList<>();
+            List<Double> closes = new ArrayList<>();
+
+            for (Map<String, String> v : values) {
+                highs.add(Double.parseDouble(v.get("high")));
+                lows.add(Double.parseDouble(v.get("low")));
+                closes.add(Double.parseDouble(v.get("close")));
+            }
+
+            // 2. Parameters
+            int rangePeriod = 20;
+            double atrMultiplier = 1.5;
+
+            // 3. Calculate True Range (TR)
+            List<Double> trList = new ArrayList<>();
+            for (int i = 1; i < closes.size(); i++) {
+                double tr = Math.max(highs.get(i) - lows.get(i),
+                        Math.max(Math.abs(highs.get(i) - closes.get(i - 1)),
+                                Math.abs(lows.get(i) - closes.get(i - 1))));
+                trList.add(tr);
+            }
+
+            // 4. Calculate ATR
+            double atr = 0;
+            int trStartIndex = Math.max(0, trList.size() - rangePeriod);
+            List<Double> trRecent = trList.subList(trStartIndex, trList.size());
+            for (double tr : trRecent) atr += tr;
+            atr /= trRecent.size();
+
+            // 5. Calculate rangeHigh and rangeLow
+            List<Double> highRecent = highs.subList(Math.max(0, highs.size() - rangePeriod), highs.size());
+            List<Double> lowRecent = lows.subList(Math.max(0, lows.size() - rangePeriod), lows.size());
+            double rangeHigh = Collections.max(highRecent);
+            double rangeLow = Collections.min(lowRecent);
+
+            double lastClose = closes.get(closes.size() - 1);
+            String signal;
+            double stopLoss = 0;
+            double takeProfit = 0;
+
+            if (lastClose > rangeHigh) {
+                signal = "Buy";
+                stopLoss = lastClose - atr * atrMultiplier;
+                takeProfit = lastClose + atr * atrMultiplier * 1.5;
+            } else if (lastClose < rangeLow) {
+                signal = "Sell";
+                stopLoss = lastClose + atr * atrMultiplier;
+                takeProfit = lastClose - atr * atrMultiplier * 1.5;
+            } else {
+                signal = "Neutral";
+            }
+
+            // 6. Build Response
+
+            // 6. Build Response using setters
+            ForexSignalResp data = new ForexSignalResp();
+            data.setPair(pair);
+            data.setSignal(signal);
+            data.setAtr(String.format("%.5f", atr));
+            data.setStopLoss(stopLoss);
+            data.setTakeProfit(takeProfit);
+            data.setLastClose(lastClose);
+            data.setRangeHigh(rangeHigh);
+            data.setRangeLow(rangeLow);
+            data.setInterval(interval);
+            data.setRecentPerformance("N/A"); // optional
+
+            return ResponseBuilder.success(data);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBuilder.success(null);
+        }
     }
-
     public ResponseBuilder<List<ForexCalendarResp>> calendarEvent(FilterReq filterReq) {
 
         if (!cache.getAll().isEmpty()) {
