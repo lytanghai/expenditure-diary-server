@@ -21,6 +21,13 @@ public class ExpenseController {
 
     @Autowired private ExpenseService expenseService;
 
+
+    @GetMapping("/public/wakeup")
+    public String wakeup() {
+        System.out.println("Wake-up request received!");
+        return "Server is awake!";
+    }
+
     //create
     @PostMapping("/create")
     public void addNewExpense(@RequestBody ExpenseAddRequest expenseAddRequest) {
