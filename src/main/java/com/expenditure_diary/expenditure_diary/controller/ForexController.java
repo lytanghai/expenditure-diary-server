@@ -65,7 +65,7 @@ public class ForexController {
         return forexMarketService.forexMarketPrice(symbol);
     }
 
-    @PostMapping("/fetch/merket-holiday")
+    @GetMapping("/fetch/market-holiday")
     public ResponseBuilder<MarketHolidayResponse> candleResponse(@RequestParam(value = "exchange", defaultValue = "US") String exchange) {
         return forexMarketService.getMarketHoliday(exchange);
     }

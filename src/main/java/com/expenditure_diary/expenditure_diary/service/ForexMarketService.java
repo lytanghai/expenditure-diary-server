@@ -3,6 +3,7 @@ package com.expenditure_diary.expenditure_diary.service;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexMarketPriceResponse;
 import com.expenditure_diary.expenditure_diary.dto.resp.MarketHolidayResponse;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -71,9 +72,25 @@ public class ForexMarketService {
 
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<MarketHolidayResponse> response =
-                restTemplate.exchange(url, HttpMethod.GET, entity, MarketHolidayResponse.class);
+        // First try with String
+        ResponseEntity<String> response =
+                restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
-        return ResponseBuilder.success(response.getBody());
+        System.out.println("Finnhub raw response: " + response.getBody());
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                MarketHolidayResponse holidayResponse =
+                        mapper.readValue(response.getBody(), MarketHolidayResponse.class);
+
+                return ResponseBuilder.success(holidayResponse);
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to parse Finnhub response", e);
+            }
+        }
+
+        throw new RuntimeException("Finnhub API returned error: " + response.getStatusCode());
     }
+
 }
