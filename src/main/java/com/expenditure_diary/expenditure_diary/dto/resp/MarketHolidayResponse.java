@@ -1,58 +1,63 @@
 package com.expenditure_diary.expenditure_diary.dto.resp;
 
-public class CandleResponse {
-    private long[] t; // Timestamps
-    private float[] o; // Open prices
-    private float[] h; // High prices
-    private float[] l; // Low prices
-    private float[] c; // Close prices
-    private float[] v; // Volume (optional)
+import java.util.List;
 
-    public long[] getT() {
-        return t;
+public class MarketHolidayResponse {
+    private String exchange;
+    private String timeZone;
+    private List<Data> data;
+
+    public String getExchange() {
+        return exchange;
     }
 
-    public void setT(long[] t) {
-        this.t = t;
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
     }
 
-    public float[] getO() {
-        return o;
+    public String getTimeZone() {
+        return timeZone;
     }
 
-    public void setO(float[] o) {
-        this.o = o;
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
     }
 
-    public float[] getH() {
-        return h;
+    public List<Data> getData() {
+        return data;
     }
 
-    public void setH(float[] h) {
-        this.h = h;
+    public void setData(List<Data> data) {
+        this.data = data;
     }
 
-    public float[] getL() {
-        return l;
-    }
+    public static class Data {
+        private String eventName;
+        private String atDate;
+        private String tradingHour;
 
-    public void setL(float[] l) {
-        this.l = l;
-    }
+        public String getEventName() {
+            return eventName;
+        }
 
-    public float[] getC() {
-        return c;
-    }
+        public void setEventName(String eventName) {
+            this.eventName = eventName;
+        }
 
-    public void setC(float[] c) {
-        this.c = c;
-    }
+        public String getAtDate() {
+            return atDate;
+        }
 
-    public float[] getV() {
-        return v;
-    }
+        public void setAtDate(String atDate) {
+            this.atDate = atDate;
+        }
 
-    public void setV(float[] v) {
-        this.v = v;
+        public String getTradingHour() {
+            return tradingHour;
+        }
+
+        public void setTradingHour(String tradingHour) {
+            this.tradingHour = tradingHour;
+        }
     }
 }

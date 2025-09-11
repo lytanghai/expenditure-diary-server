@@ -1,10 +1,10 @@
 package com.expenditure_diary.expenditure_diary.controller;
 
 import com.expenditure_diary.expenditure_diary.dto.req.FilterReq;
-import com.expenditure_diary.expenditure_diary.dto.resp.CandleResponse;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexCalendarResp;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexMarketPriceResponse;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexSignalResp;
+import com.expenditure_diary.expenditure_diary.dto.resp.MarketHolidayResponse;
 import com.expenditure_diary.expenditure_diary.service.ForexMarketService;
 import com.expenditure_diary.expenditure_diary.service.ForexSignalService;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
@@ -65,12 +65,8 @@ public class ForexController {
         return forexMarketService.forexMarketPrice(symbol);
     }
 
-    @PostMapping("/fetch/candle")
-    public ResponseBuilder<CandleResponse> candleResponse(@RequestParam String fromSymbol,
-                                                          @RequestParam String toSymbol,
-                                                          @RequestParam String resolution,
-                                                          @RequestParam long from,
-                                                          @RequestParam long to) {
-        return forexMarketService.getCandleData(fromSymbol, toSymbol, resolution, from, to);
+    @PostMapping("/fetch/merket-holiday")
+    public ResponseBuilder<MarketHolidayResponse> candleResponse(@RequestParam(value = "exchange", defaultValue = "US") String exchange) {
+        return forexMarketService.getMarketHoliday(exchange);
     }
 }
