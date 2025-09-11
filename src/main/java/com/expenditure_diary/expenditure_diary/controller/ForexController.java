@@ -4,7 +4,6 @@ import com.expenditure_diary.expenditure_diary.dto.req.FilterReq;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexCalendarResp;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexMarketPriceResponse;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexSignalResp;
-import com.expenditure_diary.expenditure_diary.dto.resp.MarketHolidayResponse;
 import com.expenditure_diary.expenditure_diary.service.ForexMarketService;
 import com.expenditure_diary.expenditure_diary.service.ForexSignalService;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
@@ -65,8 +64,4 @@ public class ForexController {
         return forexMarketService.forexMarketPrice(symbol);
     }
 
-    @GetMapping("/fetch/market-holiday")
-    public ResponseBuilder<MarketHolidayResponse> candleResponse(@RequestParam(value = "exchange", defaultValue = "US") String exchange) {
-        return forexMarketService.getMarketHoliday(exchange);
-    }
 }

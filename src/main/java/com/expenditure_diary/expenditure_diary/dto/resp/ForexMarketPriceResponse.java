@@ -1,12 +1,10 @@
 package com.expenditure_diary.expenditure_diary.dto.resp;
 
-import java.time.LocalDateTime;
-
 public class ForexMarketPriceResponse {
     private String assetName;
     private Float price;
     private String symbol;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
     private String updatedText;
 
     public String getAssetName() {
@@ -33,11 +31,11 @@ public class ForexMarketPriceResponse {
         this.symbol = symbol;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
