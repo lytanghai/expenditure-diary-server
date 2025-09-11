@@ -1,8 +1,11 @@
 package com.expenditure_diary.expenditure_diary.controller;
 
 import com.expenditure_diary.expenditure_diary.dto.req.FilterReq;
+import com.expenditure_diary.expenditure_diary.dto.resp.CandleResponse;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexCalendarResp;
+import com.expenditure_diary.expenditure_diary.dto.resp.ForexMarketPriceResponse;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexSignalResp;
+import com.expenditure_diary.expenditure_diary.service.ForexMarketService;
 import com.expenditure_diary.expenditure_diary.service.ForexSignalService;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +17,9 @@ import java.util.List;
 @RequestMapping("forex")
 public class ForexController {
 
-    @Autowired
-    private ForexSignalService forexSignalService;
+    @Autowired private ForexSignalService forexSignalService;
+
+    @Autowired private ForexMarketService forexMarketService;
 
     /**
      * {
@@ -54,5 +58,19 @@ public class ForexController {
     @PostMapping("/calendar-event")
     public ResponseBuilder<List<ForexCalendarResp>> calendarEvent(@RequestBody FilterReq filterReq) {
         return forexSignalService.calendarEvent(filterReq);
+    }
+
+    @GetMapping("/fetch/price")
+    public ResponseBuilder<ForexMarketPriceResponse> fetchForexMarketPrice(@RequestParam(value = "symbol", defaultValue = "XAU") String symbol) {
+        return forexMarketService.forexMarketPrice(symbol);
+    }
+
+    @PostMapping("/fetch/candle")
+    public ResponseBuilder<CandleResponse> candleResponse(@RequestParam String fromSymbol,
+                                                          @RequestParam String toSymbol,
+                                                          @RequestParam String resolution,
+                                                          @RequestParam long from,
+                                                          @RequestParam long to) {
+        return forexMarketService.getCandleData(fromSymbol, toSymbol, resolution, from, to);
     }
 }

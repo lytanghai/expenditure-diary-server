@@ -35,6 +35,16 @@ public final class DateUtil extends DateUtils {
         return phnomPenhTime.format(formatter);
     }
 
+    public static String toPhnomPenhTime(String input, DateTimeFormatter dateTimeFormatter) {
+        ZonedDateTime sourceDateTime = ZonedDateTime.parse(input);
+
+        // Convert to Asia/Phnom_Penh time zone
+        ZonedDateTime phnomPenhTime = sourceDateTime.withZoneSameInstant(ZoneId.of("Asia/Phnom_Penh"));
+
+        // Format output
+        return phnomPenhTime.format(dateTimeFormatter);
+    }
+
     /** Returns "AM" if 00:00:00–11:59:59, otherwise "PM". */
     public static String getAmPm(String timeStr) {
         LocalTime t = LocalTime.parse(timeStr, FORMAT);   // throws DateTimeParseException if bad format
