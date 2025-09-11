@@ -1,11 +1,22 @@
 package com.expenditure_diary.expenditure_diary.dto.resp;
 
+import java.util.Map;
+
 public class ForexMarketPriceResponse {
     private String assetName;
     private Float price;
     private String symbol;
     private String updatedAt;
     private String updatedText;
+    private Map<String, Object> history;
+
+    public Map<String, Object> getHistory() {
+        return history;
+    }
+
+    public void setHistory(Map<String, Object> history) {
+        this.history = history;
+    }
 
     public String getAssetName() {
         return assetName;
