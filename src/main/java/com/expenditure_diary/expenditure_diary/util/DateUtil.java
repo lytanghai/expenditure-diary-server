@@ -60,6 +60,11 @@ public final class DateUtil extends DateUtils {
                 .substring(0,19);
     }
 
+    public static String format(String date, int begin, int end) {
+        return date.replace("T"," ")
+                .substring(begin,end);
+    }
+
     public static String[] getDayDateRange(Date date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_WITH_TIME_1);
 

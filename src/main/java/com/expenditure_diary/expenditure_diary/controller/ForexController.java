@@ -1,6 +1,7 @@
 package com.expenditure_diary.expenditure_diary.controller;
 
 import com.expenditure_diary.expenditure_diary.dto.req.FilterReq;
+import com.expenditure_diary.expenditure_diary.dto.resp.CmcPriceResp;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexCalendarResp;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexMarketPriceResponse;
 import com.expenditure_diary.expenditure_diary.dto.resp.ForexSignalResp;
@@ -64,4 +65,8 @@ public class ForexController {
         return forexMarketService.forexMarketPrice(symbol);
     }
 
+    @GetMapping("/fetch/cmc-price")
+    public ResponseBuilder<CmcPriceResp> fetchMarketCmcPrice(@RequestParam("fromSymbol") String fromSymbol, @RequestParam("toSymbol") String toSymbol) {
+        return forexMarketService.fetchMarketCmcPrice(fromSymbol, toSymbol);
+    }
 }
