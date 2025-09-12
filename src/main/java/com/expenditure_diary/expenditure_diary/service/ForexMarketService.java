@@ -5,8 +5,6 @@ import com.expenditure_diary.expenditure_diary.dto.resp.ForexMarketPriceResponse
 import com.expenditure_diary.expenditure_diary.util.DateUtil;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +14,26 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ForexMarketService {
 
-    private static final Logger log = LoggerFactory.getLogger(ForexMarketService.class);
     private final Map<String, Float> history = new ConcurrentHashMap<>();
+
+    private final List<String> apiKeys = List.of(
+            "7e9ed58c-b1b8-4eaa-81ed-c36781c2cd68",
+            "57cd5930-852b-478f-939e-0c96c37b0016"
+    );
+    private final AtomicInteger counter = new AtomicInteger(0);
+
+    private String getNextApiKey() {
+        int index = counter.getAndIncrement() % apiKeys.size();
+        return apiKeys.get(index);
+    }
 
     @Autowired
     private RestTemplateService restTemplateService;
@@ -44,8 +54,8 @@ public class ForexMarketService {
             String assetName = response.optString("name", "N/A");
             String symbolName = response.optString("symbol", symbol);
             float price = (float) response.optDouble("price", 0.0);
-            String updatedAt = response.optString("updatedAt", "");
-            String updatedText = response.optString("updatedAtReadable", "a few seconds ago");
+            String updatedAt = response.optString("updatedAt");
+            String updatedText = response.optString("updatedAtReadable");
 
             // Set response
             forexMarketPriceResponse.setAssetName(assetName);
@@ -71,7 +81,7 @@ public class ForexMarketService {
                 .toUriString();
 
         Map<String, String> headers = new HashMap<>();
-        headers.put("X-CMC_PRO_API_KEY", "7e9ed58c-b1b8-4eaa-81ed-c36781c2cd68");
+        headers.put("X-CMC_PRO_API_KEY", getNextApiKey());
         headers.put("Content-Type", "application/json");
         headers.put("Accept", "application/json");
 
