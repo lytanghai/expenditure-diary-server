@@ -1,5 +1,6 @@
 package com.expenditure_diary.expenditure_diary.controller;
 
+import com.expenditure_diary.expenditure_diary.dto.req.RecurringExpenseReq;
 import com.expenditure_diary.expenditure_diary.dto.resp.ExpenseResponse;
 import com.expenditure_diary.expenditure_diary.dto.resp.ExpenseTrackerListResp;
 import com.expenditure_diary.expenditure_diary.dto.resp.PaginatedResponse;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/expense_tracking")
@@ -31,7 +34,15 @@ public class ExpenseController {
     //create
     @PostMapping("/create")
     public void addNewExpense(@RequestBody ExpenseAddRequest expenseAddRequest) {
-        expenseService.addNewExpenseRecord(expenseAddRequest);
+        List<ExpenseAddRequest> addReq = List.of(expenseAddRequest);
+        RecurringExpenseReq expenseReq =  new RecurringExpenseReq();
+        expenseReq.setExpenseAddRequests(addReq);
+        expenseService.addNewExpenseRecord(expenseReq, true);
+    }
+
+    @PostMapping("/batch/create")
+    public void recurringCreateExpenses(@RequestBody RecurringExpenseReq req) {
+        expenseService.addNewExpenseRecord(req, false);
     }
 
     @PatchMapping("/update/{id}")

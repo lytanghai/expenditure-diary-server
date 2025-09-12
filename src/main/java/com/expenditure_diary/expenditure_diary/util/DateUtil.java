@@ -60,6 +60,12 @@ public final class DateUtil extends DateUtils {
                 .substring(0,19);
     }
 
+    public static void main(String[] args) {
+        String date = "2025-09-11T14:34:02.000Z";
+        System.out.println(date.replace("T"," ")
+                .substring(0,19));
+    }
+
     public static String format(String date, int begin, int end) {
         return date.replace("T"," ")
                 .substring(begin,end);

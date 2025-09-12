@@ -3,6 +3,7 @@ package com.expenditure_diary.expenditure_diary.service;
 import com.expenditure_diary.expenditure_diary.cache.ExpenseRecordCache;
 import com.expenditure_diary.expenditure_diary.constant.ApplicationCode;
 import com.expenditure_diary.expenditure_diary.constant.Static;
+import com.expenditure_diary.expenditure_diary.dto.req.RecurringExpenseReq;
 import com.expenditure_diary.expenditure_diary.dto.resp.*;
 import com.expenditure_diary.expenditure_diary.exception.ServiceException;
 import com.expenditure_diary.expenditure_diary.dto.req.ExpenseAddRequest;
@@ -45,8 +46,21 @@ public class ExpenseService  {
         this.expenseTrackerCustomRepo = expenseTrackerCustomRepo;
     }
 
-    public void addNewExpenseRecord(ExpenseAddRequest expenseAddRequest) {
 
+    public void addNewExpenseRecord(RecurringExpenseReq expenseAddRequest, boolean singleReq) {
+        if(singleReq) {
+            expenseTrackerRepo.save(expenseCreateValidator(expenseAddRequest.getExpenseAddRequests().get(0)));
+        } else {
+            List<ExpenseTracker> objToSave = new  ArrayList<>();
+            for(ExpenseAddRequest each : expenseAddRequest.getExpenseAddRequests()) {
+                ExpenseTracker expenseTracker = expenseCreateValidator(each);
+                objToSave.add(expenseTracker);
+            }
+            expenseTrackerRepo.saveAll(objToSave);
+        }
+    }
+
+    public ExpenseTracker expenseCreateValidator(ExpenseAddRequest expenseAddRequest) {
         String reqCurrency = expenseAddRequest.getCurrency();
         if(reqCurrency == null || reqCurrency.isEmpty())
             throw new ServiceException(ApplicationCode.W001.getCode(), ApplicationCode.W001.getMessage());
@@ -79,7 +93,7 @@ public class ExpenseService  {
                 ? BigDecimal.valueOf(Double.parseDouble(convertAmount.substring(4)))
                 : BigDecimal.valueOf(Long.parseLong(convertedAmt)));
 
-        expenseTrackerRepo.save(expenseTracker);
+        return expenseTracker;
     }
 
     public void updateExpenseById(Integer id, ExpenseAddRequest expenseUpdateRequest) {
