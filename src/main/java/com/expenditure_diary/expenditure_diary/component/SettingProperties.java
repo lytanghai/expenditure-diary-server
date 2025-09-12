@@ -14,7 +14,6 @@ public class SettingProperties {
 
     private String forexFactoryThisWeekJson;
 
-
     public String getForexFactoryThisWeekJson() {
         return forexFactoryThisWeekJson;
     }

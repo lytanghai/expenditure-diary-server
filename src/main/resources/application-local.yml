@@ -48,6 +48,8 @@ setting:
   twelveDataUrl: https://api.twelvedata.com/time_series?symbol=pair&interval=itzmin&outputsize=50&apikey=
   twelveDataApiKey: fa4558aef2b5486ca4894bd76dbea032
   forexFactoryThisWeekJson: https://nfs.faireconomy.media/ff_calendar_thisweek.json
+  monthlyPayment: 150
+  monthlyPaymentCurrency: USD
 
 
 server:
@@ -55,8 +57,6 @@ server:
   servlet:
     context-path: /expenditure-diary
   port: 8082
-
-
 
 app:
   version: 1.0.10

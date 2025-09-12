@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -60,7 +61,7 @@ public interface ExpenseTrackerRepo extends JpaRepository<ExpenseTracker, Intege
     @Query(
             value = "SELECT et.currency, SUM(et.price) AS total " +
                     "FROM expense_tracker et " +
-                    "WHERE TO_CHAR(TO_TIMESTAMP(et.expense_date, 'DD-MM-YYYY HH24:MI:SS'), 'YYYY-MM') = :month GROUP BY et.currency",
+                    "WHERE TO_CHAR(TO_TIMESTAMP(et.expense_date, 'DD-MM-YYYY HH24:MI:SS'), 'YYYY-MM') = :month GROUP BY et.currency ",
             countQuery = "SELECT COUNT(*) " +
                     "FROM expense_tracker et " +
                     "WHERE TO_CHAR(TO_TIMESTAMP(et.expense_date, 'DD-MM-YYYY HH24:MI:SS'), 'YYYY-MM') = :month",
@@ -74,4 +75,16 @@ public interface ExpenseTrackerRepo extends JpaRepository<ExpenseTracker, Intege
             "        WHERE to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS') < \n" +
             "              now() - interval '3 months'", nativeQuery = true)
     int deleteRecordsOlderThanThreeMonths();
+
+
+    @Query(value = "SELECT COALESCE(SUM(CASE " +
+            "WHEN currency = 'USD' THEN price " +
+            "WHEN currency = 'KHR' THEN price / 4000.0 " +
+            "ELSE 0 END), 0) " +
+            "FROM public.expense_tracker " +
+            "WHERE to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS') >= date_trunc('month', CURRENT_DATE) " +
+            "AND to_timestamp(expense_date, 'DD-MM-YYYY HH24:MI:SS') < (date_trunc('month', CURRENT_DATE) + interval '1 month')",
+            nativeQuery = true)
+    BigDecimal fetchCurrentMonthTotal();
+
 }
