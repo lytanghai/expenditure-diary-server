@@ -11,6 +11,8 @@ import com.expenditure_diary.expenditure_diary.dto.req.ExpenseFilterRequest;
 import com.expenditure_diary.expenditure_diary.service.ExpenseService;
 import com.expenditure_diary.expenditure_diary.entity.ExpenseTracker;
 import com.expenditure_diary.expenditure_diary.util.ResponseBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +26,14 @@ public class ExpenseController {
 
     @Autowired private ExpenseService expenseService;
 
+    private final Logger log = LoggerFactory.getLogger(ExpenseController.class);
+
+    private Integer sleepFor = 0;
 
     @GetMapping("/public/wakeup")
-    public String wakeup() {
-        System.out.println("Wake-up request received!");
-        return "Server is awake!";
+    public void wakeup() {
+        sleepFor += 1;
+        log.info("server: Expenditure-Diary has been awake for {} times!", sleepFor);
     }
 
     //create
