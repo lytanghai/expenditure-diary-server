@@ -26,7 +26,8 @@ public class ForexMarketService {
 
     private final List<String> apiKeys = List.of(
             "7e9ed58c-b1b8-4eaa-81ed-c36781c2cd68",
-            "57cd5930-852b-478f-939e-0c96c37b0016"
+            "57cd5930-852b-478f-939e-0c96c37b0016",
+            "97aeeb2a-0a80-4048-9662-c44b2091636d"
     );
     private final AtomicInteger counter = new AtomicInteger(0);
 
